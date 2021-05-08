@@ -3,57 +3,55 @@
 		<title>Frontrunners Boston</title>
 		<link href="style.css" rel="stylesheet" type="text/css" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="slideshow.js"></script>
-		<link rel="stylesheet" type="text/css" href="slideshow.css" />
 
 		<script type="text/javascript">
+$(document).on("click", ".slide_arrow", function (evt) {
+	var dir = $(this).hasClass("slide_previous") ? -1 : 1,
+		$ss = $(this).closest(".slideshow"),
+		$elts = $ss.children(".slide"),
+		i;
+	for (i = 0; i < $elts.length && !$($elts[i]).hasClass("active"); ++i) {}
+	i = Math.min(Math.max(0, i + dir), $elts.length - 1);
+	$elts.removeClass("active");
+	$($elts[i]).addClass("active");
+	$ss.find(".slide_previous").toggleClass("hidden", i === 0);
+	$ss.find(".slide_next").toggleClass("hidden", i >= $elts.length - 1);
+	evt.preventDefault();
+});
+$(document).on("click", ".site_link", function (evt) {
+	$(".content").addClass("hidden");
+	$(this.hash).removeClass("hidden");
+	location.hash = this.hash;
+	$("body").scrollTop(0);
+	evt.preventDefault();
+});
 
-	$(document).ready(function(){
-		$('a.menu_item').each(function(){
-			id = $(this).attr('href');
-			id = id.substring(id.lastIndexOf('/'));
-			$(this).attr('rel',id);
-		});
-		if (location.hash == ''){
-			$('#home').show();
-		}else{
-			$(location.hash).show();
-		}
-		$('a.menu_item').click(function(e){
-			e.preventDefault();
-			$('.content').hide();
-			$('#'+$(this).attr('rel')).show();
-			location.hash = '#'+$(this).attr('rel');
-			$('body').scrollTop(0);
-			return false;
-		});
-	});
-
-		</script>
-	</head>
+$(document).ready(function() {
+	var $e = $(location.hash === "" ? "#home" : location.hash);
+	if ($e.length !== 0) {
+		$(".content").addClass("hidden");
+		$e.removeClass("hidden");
+	}
+});
+</script>
+</head>
 
 <body>
-<div id="wrapper">
 
 <div id="header">
-	<nav>
-		<div id="menu">
-			<p>
-			<a class="menu_item" id="class_title" href="home">Frontrunners Boston </a> 
-			</p>
-			<p>
-			<a class="menu_item" href="about">About us | </a>
-			<a class="menu_item" href="events">Past Events | </a>
-			<a class="menu_item" href="run">Run | </a>
-			<a class="menu_item" href="newcomers">Newcomers</a>
-			</p>
-		</div>
-		<div id="logo">
-			<a class="menu_item" href="home"><img height="150px" src="images/logo.png"> </img></a>
-		</div>
+	<a id="site_title" class="site_link" href="#home">Frontrunners Boston</a>
+	<nav id="site_nav">
+		<ul id="menu">
+			<li><a class="site_link" href="#about">About us</a></li>
+			<li><a class="site_link" href="#events">Past Events</a></li>
+			<li><a class="site_link" href="#run">Run</a></li>
+			<li><a class="site_link" href="#newcomers">Newcomers</a></li>
+		</ul>
 	</nav>
+	<div id="site_logo">
+		<a class="site_link" href="#home"><img height="150px" src="images/logo.png"></a>
+	</div>
 </div>
 
 <div id="main">
@@ -90,7 +88,7 @@
 
 </div>
 
-<div id="about" class="content">
+<div id="about" class="content hidden">
 	<img class="center" src="images/saturday_brunch.png"> </img>
 	<div class="wide_column">
 	<h1>About Us</h1>
@@ -105,7 +103,7 @@
 
 </div>
 
-<div id="run" class="content">
+<div id="run" class="content hidden">
 
 <h1>Saturday Run</h1>
 
@@ -179,9 +177,9 @@ near the MIT Student Center, as well.</p>
 
 </div>
 
-<div id="newcomers" class="content">
+<div id="newcomers" class="content hidden">
 	<h1>How do I participate?</h1>
-	<p>The best way is to join us is to run with us on a Saturday. We welcome new members of all ages, sizes, and running mileages. Out-of-towners and visitors are welcome as well. All you need to do is to show up and run! We are very friendly people. More detail on Saturday runs can be found <a class="menu_item" href="run">here</a>. And to stay updated with our club updates and news, please join our <a target="_blank" href="https://www.facebook.com/groups/FRBoston">Front Runners Boston Facebook group</a>. </p>
+	<p>The best way is to join us is to run with us on a Saturday. We welcome new members of all ages, sizes, and running mileages. Out-of-towners and visitors are welcome as well. All you need to do is to show up and run! We are very friendly people. More detail on Saturday runs can be found <a class="site_link" href="#run">here</a>. And to stay updated with our club updates and news, please join our <a target="_blank" href="https://www.facebook.com/groups/FRBoston">Front Runners Boston Facebook group</a>. </p>
 	<h1>What should I expect on my first Saturday run? </h1>
 	<p>First, look for good looking people in running gear on Saturday morning and say hi. We are always keen on welcoming new members. We will go around and introduce ourselves before we start running. At least one of us will be running with you to make sure you’re not lost.</p>
 	<h1>Besides Saturday runs, what else do you guys do? </h1>
@@ -192,62 +190,53 @@ near the MIT Student Center, as well.</p>
 	<p>Email us at rnicoll {{at}} brandeis {{dot}} edu (replace the {{at}} and {{dot}} with @ and ., respectively.) </p>
 </div>
 
-<div id="events" class="content"> 
-	<div class="skinny_column">
-	<h1>Boston Pride (2018)</h1>
-	Great group on the morning of Boston Pride!
+<div id="events" class="content evcontainer hidden">
+	<div class="evname">
+		<h1>May 2021!</h1>
 	</div>
-	<div class="wide_column">
-	<div class="slideshow" id="boston_pride">
-		<ul class="slides">
-			<li class="slides"><img src="images/boston_pride/pride_1.jpeg" /></li>
-			<li class="slides"><img src="images/boston_pride/pride_2.jpeg" /></li>
-		</ul>
-		<span class="slide_arrow slide_previous"></span>
-		<span class="slide_arrow slide_next"></span>
-	</div>
+	<div class="evpic slideshow">
+		<div class="slide active"><img src="images/20210508.jpg"></div>
 	</div>
 
-	<div class="skinny_column">
-	<h1>July Social (2017)</h1>
-	We had our monthly social at Cathedral Station in the South End!
+	<div class="evname">
+		<h1>Boston Pride (2018)</h1>
+		<p>Great group on the morning of Boston Pride!</p>
 	</div>
-	<div class="wide_column">
-	<div class="slideshow" id="july_social">
-		<ul class="slides">
-			<li class="slides"><img src="images/july_social/july_social_1.png" /></li>
-			<li class="slides"><img src="images/july_social/july_social_2.png" /></li>
-			<li class="slides"><img src="images/july_social/july_social_3.png" /></li>
-		</ul>
-		<span class="slide_arrow slide_previous"></span>
-		<span class="slide_arrow slide_next"></span>
-	</div>
+	<div class="evpic slideshow" id="boston_pride">
+		<div class="slide active"><img src="images/boston_pride/pride_1.jpeg"></div>
+		<div class="slide"><img src="images/boston_pride/pride_2.jpeg"></div>
+		<a class="slide_arrow slide_previous hidden" href=""></a>
+		<a class="slide_arrow slide_next" href=""></a>
 	</div>
 
-	<div class="skinny_column">
-	<h1>Saturday Brunch</h1>
-	Outdoor brunch in the public garden after a Saturday Run!
+	<div class="evname">
+		<h1>July Social (2017)</h1>
+		<p>A social at Cathedral Station in the South End</p>
 	</div>
-	<div class="wide_column">
-	<div class="slideshow" id="saturday_brunch">
-		<ul class="slides">
-			<li class="slides"><img src="images/saturday_brunch/brunch_1.png" /></li>
-			<li class="slides"><img src="images/saturday_brunch/brunch_2.png" /></li>
-			<li class="slides"><img src="images/saturday_brunch/brunch_3.png" /></li>
-			<li class="slides"><img src="images/saturday_brunch/brunch_4.png" /></li>
-		</ul>
+	<div class="evpic slideshow" id="july_social">
+		<div class="slide active"><img src="images/july_social/july_social_1.png" /></div>
+		<div class="slide"><img src="images/july_social/july_social_2.png" /></div>
+		<div class="slide"><img src="images/july_social/july_social_3.png" /></div>
+		<a class="slide_arrow slide_previous hidden" href=""></a>
+		<a class="slide_arrow slide_next" href=""></a>
+	</div>
 
-		<span class="slide_arrow slide_previous"></span>
-		<span class="slide_arrow slide_next"></span>
+	<div class="evname">
+		<h1>Saturday Brunch</h1>
+		<p>Outdoor brunch in the public garden after a Saturday run</p>
 	</div>
+	<div class="evpic slideshow" id="saturday_brunch">
+		<div class="slide active"><img src="images/saturday_brunch/brunch_1.png" /></div>
+		<div class="slide"><img src="images/saturday_brunch/brunch_2.png" /></div>
+		<div class="slide"><img src="images/saturday_brunch/brunch_3.png" /></div>
+		<div class="slide"><img src="images/saturday_brunch/brunch_4.png" /></div>
+		<a class="slide_arrow slide_previous hidden" href=""></a>
+		<a class="slide_arrow slide_next" href=""></a>
 	</div>
 
 </div>
 
 </div>
 
-</div>
 </body>
-
-
 </html>
