@@ -5,22 +5,16 @@ html {
 	box-sizing: inherit;
 }
 
-body 
-{
+body {
 	font-family: "Helvetica", sans-serif; 
 	font-size: 14pt;
 	font-weight: 300;
 	margin: 0 2rem;
 	color: black;
 	background-color: white;
-	/*
-	height: 100%;
-	background-color: #BDDEF2;
-*/
 }
 
-h1
-{
+h1 {
 	margin-top: 0;
 	font-size: 150%;	
 }
@@ -28,28 +22,26 @@ h2 {
 	font-weight: normal;
 }
 
-#main{
+#main {
 	max-width: 1100px;
 	background-color: white;
-	/*
-	overflow-y: auto;
-	background-color: #BDDEF2;
-	*/
 	padding: 0 0 30px 0;
 	margin: 0 auto;
 }
 
 
-#header
-{
-	max-width:1100px;
+#header {
+	width: 100%;
+	max-width: 1100px;
 	margin: 50px auto 30px;
 	display: grid;
 	grid-template-columns: auto 170px;
 	grid-template-areas: "title logo" "nav logo";
+	justify-content: stretch;
 }
 #site_title {
 	margin-right: 20px;
+	margin-bottom: 1rem;
 	color: red;
 	font-weight: bold;
 	font-size: 42pt;
@@ -79,6 +71,23 @@ h2 {
 }
 #site_logo {
 	grid-area: logo;
+	margin-bottom: 0.75rem;
+}
+#site_logo > a {
+	display: block;
+	margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+#site_title {
+	font-size: 32pt;
+}
+#site_nav a {
+	font-size: 22pt;
+}
+#header {
+	grid-template-areas: "title" "logo" "nav";
+}
 }
 
 
@@ -153,7 +162,7 @@ div.skinny_column{
 	margin: 0 auto;
 	display: block;
 }
-@media screen and (max-width: 640px) {
+@media (max-width: 640px) {
 .evname, .evpic {
 	flex-basis: 100%;
 }
