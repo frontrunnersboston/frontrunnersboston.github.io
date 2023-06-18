@@ -92,7 +92,10 @@ h2 {
 
 
 img.map{
-	padding: 20px;
+	display: block;
+	max-width: 100%;
+	margin-top: 1rem;
+	margin-bottom: 2rem;
 }
 
 img.center{
