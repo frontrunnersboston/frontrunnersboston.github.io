@@ -29,7 +29,32 @@ $(document).on("click", ".site_link", function (evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
 });
-
+(function () {
+function carousel_move(e, dir) {
+	const ce = e.closest(".carousel"),
+		pe = ce.firstElementChild, le = pe.nextElementSibling, ne = le.nextElementSibling;
+	let ch = le.firstElementChild;
+	while (ch && ch.hidden) {
+		ch = ch.nextElementSibling;
+	}
+	let nch;
+	if (dir === 0) {
+		nch = le.firstElementChild;
+	} else if (dir < 0) {
+		nch = ch.previousElementSibling || le.lastElementChild;
+	} else {
+		nch = ch.nextElementSibling || le.firstElementChild;
+	}
+	ch.hidden = true;
+	nch.hidden = false;
+}
+$(document).on("click", ".carousel-prev", function (evt) {
+	carousel_move(this, -1);
+});
+$(document).on("click", ".carousel-next", function (evt) {
+	carousel_move(this, 1);
+});
+})();
 $(document).ready(function() {
 	var $e = $(location.hash === "" ? "#home" : location.hash);
 	if ($e.length !== 0) {
@@ -69,39 +94,49 @@ $(document).ready(function() {
 	7 mile loop. Some people walk, some people run. Everybody has a good
 	time!</p>
 
-	<p><strong>Saturday morning downtown run:</strong> We meet at 10am <a
+	<p><strong style="color:hotpink">Saturday morning downtown run:</strong> Our
+	main run meets year round Saturdays at 10am <a
 	href="https://www.google.com/maps/@?api=1&amp;map_action=pano&amp;viewpoint=42.3534722,-71.0685587&amp;heading=342.03"
 	target="_blank">in the Boston Public Garden near the tall flagpole</a>.
 	The closest MBTA station is Arlington on the Green Line, but Park Street
 	is within a 5-minute walk. After the run, we meet up again at the
-	flagpole, then get brunch. Often dozens show up.</p>
+	flagpole, then get brunch. When the weather is nice we eat outside; in
+	winter, we typically gather in the public galleria nearby at <a
+	href="https://maps.app.goo.gl/5Ub6K5Zd5TtUDKD27" target="_blank">75 Arlington St/10
+	St. James Ave</a> (the building with Orangetheory Fitness in it). Often
+	dozens show up.</p>
 
-	<p><strong>Wednesday evening Jamaica Plain run</strong> (new in March
-	2023!): Meet at 6:30pm <a href="https://goo.gl/maps/bnmU9eZ7LfqhdxDw5"
-	target="_blank">on
-	Boylston Street, outside the Stony Brook MBTA Orange Line station, near
-	the Blue Bikes station</a>. The 22, 29, 39, 41, 42, and 44 buses also stop
-	nearby. If you’re coming for the first time and/or need a place to store
-	your things, reach out to the Facebook group.</p>
+	<p><strong>Monday evening Davis Square run</strong> meets at 6:30–6:45pm
+	<a href="https://maps.app.goo.gl/o6Fz8a5ADKYRFTs48" target="_blank">in
+	Davis Square, Somerville, outside the Davis MBTA Red Line station, near
+	BlueBikes</a>, then typically runs a loop out to Alewife Brook and back.</p>
 
-	<p><i>Thursday evening Cambridge run</i> is currently dormant. When we meet
+	<p><strong>Wednesday evening Jamaica Plain run</strong> meets at 6:30pm <a
+	href="https://goo.gl/maps/bnmU9eZ7LfqhdxDw5" target="_blank">on Boylston
+	Street, on the park lawn outside the Stony Brook MBTA Orange Line
+	station</a>. The 22, 29, 39, 41, 42, and 44 buses also stop nearby. In the
+	winter months especially, reach out to our Facebook group to make sure
+	we’re running this week.</p>
+
+	<p><strong>Social events</strong>: We meet on the second Saturday of every
+	month at a different bar and hang out, and we go out for other events,
+	such as axe throwing, rock climbing, skiing, movies, and shows. Events are
+	announced on Facebook.</p>
+
+	<!-- <p><i>Thursday evening Cambridge run</i> is currently dormant. When we meet
 	Thursdays, the time is between 6:15 and 7, and is announced on Twitter
 	(below). Our Thursday meeting place is the <a
 	href="https://www.google.com/maps/@?api=1&amp;map_action=pano&amp;viewpoint=42.358835,-71.0941235&amp;heading=317.98"
-	target="_blank">MIT Student Center in Cambridge</a>.
+	target="_blank">MIT Student Center in Cambridge</a>. -->
 
 	<p>We sometimes run on Thursday evenings
 	from Davis Square in Somerville to <a
 	href="https://www.mass.gov/locations/mystic-lakes-state-park">Shannon
 	Beach in Mystic Lakes State Park</a> and swim. For up-to-date information
 	about our plans this week, please join <a
-	href="https://www.facebook.com/groups/FRBoston">our Facebook group</a> or
-	follow <a href="https://twitter.com/frontrunboston">our Twitter</a>.</p>
+	href="https://www.facebook.com/groups/FRBoston">our Facebook group</a>.</p>
 
 	<p>Come out and run with us this week!</p>
-
-	<a class="twitter-timeline" data-width="500" href="https://twitter.com/frontrunboston?ref_src=twsrc%5Etfw">Tweets by frontrunboston</a>
-	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 
 <div id="about" class="content hidden">
@@ -113,7 +148,7 @@ $(document).ready(function() {
 
 	<div class="skinny_column">
 	<h1>Contacts</h1>
-	<p><a href="https://twitter.com/frontrunboston">Twitter</a> — <a href="https://www.facebook.com/groups/FRBoston">Facebook</a></p>
+	<p><a href="https://www.facebook.com/groups/FRBoston">Facebook</a></p>
 	<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSeqjrGwcr1Z9Tsz7UE6r4XCBz8qU0w3bK6yIzp2yaw48jm2JQ/viewform">Join our email list</a></p>
 	<p>Email us at info@frontrunnersboston.org</p>
 	</div>
@@ -122,21 +157,22 @@ $(document).ready(function() {
 
 <div id="run" class="content hidden">
 
-<h1>Saturday Run</h1>
+<h1>Saturday Boston run</h1>
 
 <p>The Saturday run is our main weekly activity. Come out and join us every
 	Saturday at 10am near the tall flagpole in Boston’s Public Garden.</p>
 
-<p>If you need to drop off your stuff, show up a bit early and drop it off in
-	one of our members’ cars. After the run, we gather up again and chat, then
-	get food from places nearby (such as Tatte, Boloco, or Chipotle) and hang
-	out and eat at the Boston Public Garden (when the weather is nice) or in
-	the atrium of <a href="http://75arlington.com">75 Arlington/10 St. James
-	Ave</a> (when the weather is not so nice).</p>
+<p>If you have stuff you’d rather not run with, show up a bit early; usually
+	at least one of us will have a car you can store stuff in. After the run,
+	we gather up again and chat, then get food from places nearby (such as
+	Tatte, Boloco, or Chipotle) and hang out and eat in the Boston Public
+	Garden (when the weather is nice) or in the public galleria at <a
+	href="http://75arlington.com">75 Arlington/10 St. James Ave</a> (when the
+	weather is not so nice).</p>
 
 <h2>How to get there</h2>
 
-<p>The meeting point is very easy to get to by the subway. The closest T
+<p>The meeting point is easy to get to by subway or bus. The closest T
 	station is Arlington on the Green Line; Park Street is also nearby. If you
 	are driving, there are plenty of 2-hour metered parking spots and the
 	Boston Common Garage. <a href="https://www.bluebikes.com">Bluebikes</a>
@@ -158,35 +194,65 @@ lunching by 11:30.</p>
 	are three main loops with different distances. If you’re a newcomer, at
 	least one of us will run with you to make sure you’re not lost.</p>
 
-<ul>
+<div class="carousel">
+	<button type="button" class="carousel-prev">←</button>
+	<ul class="carousel-list">
+		<li><figure>
+			<a href="https://goo.gl/maps/QiVzXadbR9TrafsQ8"><img class="map" src="images/routes/2023-harvard.png"></a>
+			<figcaption><strong>Mass Ave bridge loop</strong> (5.2 miles)<br>Also known as the Harvard Bridge loop, this is our most popular Saturday route.<br><small><a href="https://goo.gl/maps/QiVzXadbR9TrafsQ8">Google Maps route</a></small></figcaption>
+		</figure></li>
+		<li hidden><figure>
+			<a href="https://goo.gl/maps/LcZyrdyCT5sJJ4zR9"><img class="map" src="images/routes/2023-longfellow.png"></a>
+			<figcaption><strong>Longfellow Bridge loop</strong> (3.6 miles)<br><small><a href="https://goo.gl/maps/LcZyrdyCT5sJJ4zR9">Google Maps route</a></small></figcaption>
+		</figure></li>
+		<li hidden><figure>
+			<a href="https://goo.gl/maps/h72GEp1rbQ6RxjwE8"><img class="map" src="images/routes/2023-bu.png"></a>
+			<figcaption><strong>BU Bridge loop</strong> (7.2 miles)<br><small><a href="https://goo.gl/maps/h72GEp1rbQ6RxjwE8">Google Maps route</a></small></figcaption>
+		</figure></li>
+	</ul>
+	<button class="carousel-next">→</button>
+</div>
 
-<li>5.2 miles (most popular): Return via the Mass Ave bridge (aka the Harvard
-	Bridge). <a href="https://goo.gl/maps/QiVzXadbR9TrafsQ8">(Google Maps
-	route)</a> <a href="https://goo.gl/maps/QiVzXadbR9TrafsQ8"><img
-	class="map" style="width:700px"
-	src="images/routes/2023-harvard.png"></a></li>
 
-<li>3.6 miles: Return via the Longfellow Bridge. <a href="https://goo.gl/maps/LcZyrdyCT5sJJ4zR9">(Google Maps route)</a>
-	<a href="https://goo.gl/maps/LcZyrdyCT5sJJ4zR9"><img class="map" style="width:500px" src="images/routes/2023-longfellow.png"></a></li>
+<h1>Monday Davis Square run</h1>
 
-<li>7.2 miles: Return via the BU Bridge. <a href="https://goo.gl/maps/h72GEp1rbQ6RxjwE8">(Google Maps route)</a>
-	<a href="https://goo.gl/maps/h72GEp1rbQ6RxjwE8"><img class="map" src="images/routes/2023-bu.png"></a></li>
+<p>The Monday run starts at 6:30pm or a bit after from the Davis Square
+station in Somerville. The most common loop goes out to Cambridge and along
+the Alewife Brook Reservation before heading back.</p>
 
-</ul>
+<div class="carousel">
+	<button type="button" class="carousel-prev" disabled>←</button>
+	<ul class="carousel-list">
+		<li><figure>
+			<a href="https://maps.app.goo.gl/8vmceEYZCdDohUdd6"><img class="map" src="images/routes/2025-davis.png"></a>
+			<figcaption><strong>Alewife Brook loop</strong> (4 miles)<br><small><a href="https://maps.app.goo.gl/8vmceEYZCdDohUdd6">Google Maps route</a></small></figcaption>
+		</figure></li>
+	</ul>
+	<button type="button" class="carousel-next" disabled>→</button>
+</div>
 
-<h1>Wednesday Run</h1>
+
+<h1>Wednesday Jamaica Plain
+run</h1>
 
 <p>The Wednesday run starts at 6:30pm in the park across from the MBTA Stony
 Brook Station on the Orange Line. We decide which route to run each week as a
 group. Here are some of the routes we’ve run:</p>
 
-<ul>
-
-	<li>Jamaica Pond loop (3.4 miles). <a href="https://goo.gl/maps/zFou6yVPS3pFoE8r6">(Google Maps route)</a> <a href="https://goo.gl/maps/zFou6yVPS3pFoE8r6"><img class="map" style="width:600px" src="images/routes/2023-jp.png"></a></li>
-
-	<li>Arnold Arboretum via Southwest Corridor Park (4.7 miles). <a href="https://goo.gl/maps/b47bmmSUTEb5Yzdg6">(Google Maps route)</a> <a href="https://goo.gl/maps/b47bmmSUTEb5Yzdg6"><img class="map" style="width:600px" src="images/routes/2023-arnold.png"></a></li>
-
-</ul>
+<div class="carousel">
+	<button type="button" class="carousel-prev">←</button>
+	<ul class="carousel-list">
+	<li><figure>
+		<a href="https://goo.gl/maps/zFou6yVPS3pFoE8r6"><img class="map" src="images/routes/2023-jp.png"></a>
+		<figcaption><strong>Jamaica Pond loop</strong> (3.4 miles)<br><small><a href="https://goo.gl/maps/zFou6yVPS3pFoE8r6">Google Maps route</a></small></figcaption>
+	</figure></li>
+	<li hidden><figure>
+		<a href="https://goo.gl/maps/b47bmmSUTEb5Yzdg6"><img class="map" src="images/routes/2023-arnold.png"></a>
+		<figcaption><strong>Arnold Arboretum</strong> via Southwest Corridor Park (4.7 miles)<br><small><a href="https://goo.gl/maps/b47bmmSUTEb5Yzdg6">Google Maps route</a></small></figcaption>
+	</figure></li>
+	</ul>
+	<button class="carousel-next">→</button>
+</div>
 
 
 <!--
@@ -217,20 +283,34 @@ near the MIT Student Center, as well.</p>
 </div>
 
 <div id="newcomers" class="content hidden">
-	<h1>How do I participate?</h1>
-	<p>The best way is to join us is to run with us on a Saturday. We welcome new members of all ages, sizes, and running mileages. Out-of-towners and visitors are welcome as well. All you need to do is to show up and run! We are very friendly people. More detail on Saturday runs can be found <a class="site_link" href="#run">here</a>. And to stay updated with our club updates and news, please join our <a target="_blank" href="https://www.facebook.com/groups/FRBoston">Front Runners Boston Facebook group</a>. </p>
-	<h1>What should I expect on my first Saturday run? </h1>
+	<h2>How do I participate?</h2>
+	<p>The best way is to join us is to run with us on a Saturday. We welcome new members of all ages, sizes, and running mileages. Out-of-towners and visitors are welcome as well. All you need to do is to show up and run! We are very friendly people. More detail on Saturday runs can be found <a class="site_link" href="#run">here</a>. And to stay updated with our club updates and news, please join our <a target="_blank" href="https://www.facebook.com/groups/FRBoston">Frontrunners Boston Facebook group</a>. </p>
+	<h2>What should I expect on my first Saturday run? </h2>
 	<p>First, look for good looking people in running gear on Saturday morning and say hi. We are always keen on welcoming new members. We will go around and introduce ourselves before we start running. At least one of us will be running with you to make sure you’re not lost.</p>
-	<h1>Besides Saturday runs, what else do you guys do? </h1>
-	<p>We have occasional Thursday runs, starting at 6:15pm in Cambridge outside of the MIT Student Center. In addition to this, we occasionally have social events or run races outside of Boston together. You should definitely join or subscribe to our facebook group as we actively post our next social events, upcoming races, updates, etc. on the page. We also advertise these events at the beginning of Saturday run.</p>
-	<h1>Is there a membership fee?</h1>
+	<h2>Besides Saturday runs, what else do you guys do? </h2>
+	<p>We have Monday Somerville and Wednesday Jamaica Plain evening runs. We also have regular social events or run races outside of Boston. Join us or subscribe to our Facebook group; that’s where our events are posted. We also advertise these events at the beginning of Saturday run.</p>
+	<h2>Is there a membership fee?</h2>
 	<p>No. The club is free and open to everyone. No registrations, secret handshakes, or hanky codes.</p>
-	<h1>I still have questions. Can I talk to someone? </h1>
+	<h2>I still have questions. Can I talk to someone? </h2>
 	<p>Email us at info@frontrunnersboston.org.</p>
 </div>
 
 <div id="gallery" class="content hidden">
 <div class="evcontainer">
+	<div class="evname">
+		<h1>April 2024!</h1>
+	</div>
+	<div class="evpic slideshow">
+		<div class="slide active"><img src="images/20240413.jpg"></div>
+	</div>
+
+	<div class="evname">
+		<h1>December 2023!</h1>
+	</div>
+	<div class="evpic slideshow">
+		<div class="slide active"><img src="images/20231209.jpg"></div>
+	</div>
+
 	<div class="evname">
 		<h1>April 2023!</h1>
 	</div>

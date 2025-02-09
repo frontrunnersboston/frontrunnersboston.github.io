@@ -91,9 +91,11 @@ h2 {
 }
 
 
-img.map{
+img.map {
 	display: block;
 	max-width: 100%;
+	max-height: 60vh;
+	object-fit: contain;
 	margin-top: 1rem;
 	margin-bottom: 2rem;
 }
@@ -190,3 +192,43 @@ div.skinny_column{
 
 .slide_next{ background-position:right top;right:0;}
 .slide_next:hover{ background-position:right bottom;}
+
+.carousel {
+	display: flex;
+	margin-bottom: 2rem;
+}
+.carousel-list {
+	margin: 0;
+	padding: 0 8px;
+	flex-grow: 1;
+	list-style-type: none;
+}
+.carousel-prev, .carousel-next {
+	border-radius: 5px;
+	border-width: 0;
+	background-color: #ff5566;
+	font-weight: 900;
+	font-size: larger;
+	color: white;
+}
+.carousel-prev:hover, .carousel-next:hover {
+	background-color: #ff6677;
+}
+.carousel-prev:active, .carousel-next:active {
+	background-color: #ff3344;
+}
+.carousel-prev[disabled], .carousel-next[disabled] {
+	background-color: #bbbbbb;
+}
+[hidden] {
+	display: none !important;
+}
+
+figure {
+	margin-left: auto;
+	margin-right: auto;
+	width: fit-content;
+}
+figcaption {
+	text-align: center;
+}
