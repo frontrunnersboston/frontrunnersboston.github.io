@@ -23,9 +23,11 @@ $(document).on("click", ".slide_arrow", function (evt) {
 });
 $(document).on("click", ".site_link", function (evt) {
 	$(".content").addClass("hidden");
-	$(this.hash).removeClass("hidden");
+	$(this.hash).closest(".content").removeClass("hidden");
 	location.hash = this.hash;
-	$("body").scrollTop(0);
+	if ($(this.hash).hasClass("content")) {
+		$("body").scrollTop(0);
+	}
 	evt.preventDefault();
 	evt.stopPropagation();
 });
@@ -59,7 +61,7 @@ $(document).ready(function() {
 	var $e = $(location.hash === "" ? "#home" : location.hash);
 	if ($e.length !== 0) {
 		$(".content").addClass("hidden");
-		$e.removeClass("hidden");
+		$e.closest(".content").removeClass("hidden");
 	}
 });
 </script>
@@ -94,7 +96,7 @@ $(document).ready(function() {
 	7 mile loop. Some people walk, some people run. Everybody has a good
 	time!</p>
 
-	<p><strong style="color:hotpink">Saturday morning downtown run:</strong> Our
+	<p><strong style="color:#ff0099">Saturday morning downtown run:</strong> Our
 	main run meets year round Saturdays at 10am <a
 	href="https://www.google.com/maps/@?api=1&amp;map_action=pano&amp;viewpoint=42.3534722,-71.0685587&amp;heading=342.03"
 	target="_blank">in the Boston Public Garden near the tall flagpole</a>.
@@ -104,7 +106,7 @@ $(document).ready(function() {
 	winter, we typically gather in the public galleria nearby at <a
 	href="https://maps.app.goo.gl/5Ub6K5Zd5TtUDKD27" target="_blank">75 Arlington St/10
 	St. James Ave</a> (the building with Orangetheory Fitness in it). Often
-	dozens show up.</p>
+	dozens show up. <a class="site_link_b site_link" href="#map-boston">Route maps</a></p>
 
 	<p><strong>Monday evening Davis Square run</strong> meets at 6:30pm
 	<a href="https://maps.app.goo.gl/o6Fz8a5ADKYRFTs48" target="_blank">in
@@ -115,14 +117,14 @@ $(document).ready(function() {
 	months, you'll want to bring lights, such as a vest or head lamp, as
 	stretches of the route are dark. If you're coming for the first time
 	and/or need a place to store your things, reach out to the Facebook
-	group.</p>
+	group. <a class="site_link_b site_link" href="#map-davis">Route map</a></p>
 
 	<p><strong>Wednesday evening Jamaica Plain run</strong> meets at 6:30pm <a
 	href="https://goo.gl/maps/bnmU9eZ7LfqhdxDw5" target="_blank">on Boylston
 	Street, on the park lawn outside the Stony Brook MBTA Orange Line
 	station</a>. The 22, 29, 39, 41, 42, and 44 buses also stop nearby. In the
 	winter months especially, reach out to our Facebook group to make sure
-	we’re running this week.</p>
+	we’re running this week. <a class="site_link_b site_link" href="#map-jp">Route maps</a></p>
 
 	<p><strong>Social events</strong>: We meet on the second Saturday of every
 	month at a different bar and hang out, and we go out for other events,
@@ -192,7 +194,7 @@ announcements and introductions. We’re usually running by 10:15. Most people�
 runs take 40–45 minutes, so we meet back at the flagpole at 11 and are
 lunching by 11:30.</p>
 
-<h2>Route maps</h2>
+<h2 id="map-boston">Saturday route maps</h2>
 
 <p>Our Saturday run starts from the Public Garden and then crosses over the
 	Charles River into Cambridge via the Museum of Science bridge. We then
@@ -220,7 +222,7 @@ lunching by 11:30.</p>
 </div>
 
 
-<h1>Monday Davis Square run</h1>
+<h1 id="map-davis">Monday Davis Square run</h1>
 
 <p>The Monday run starts at 6:30pm or a bit after from the Davis Square
 station in Somerville. The most common loop goes out to Cambridge and along
@@ -238,8 +240,7 @@ the Alewife Brook Reservation before heading back.</p>
 </div>
 
 
-<h1>Wednesday Jamaica Plain
-run</h1>
+<h1 id="map-jp">Wednesday Jamaica Plain run</h1>
 
 <p>The Wednesday run starts at 6:30pm in the park across from the MBTA Stony
 Brook Station on the Orange Line. We decide which route to run each week as a

@@ -12,6 +12,7 @@ body {
 	margin: 0 2rem;
 	color: black;
 	background-color: white;
+	line-height: 1.35;
 }
 
 h1 {
@@ -20,6 +21,15 @@ h1 {
 }
 h2 {
 	font-weight: normal;
+}
+.site_link_b {
+	display: inline-block;
+	background-color: #ff99dd;
+	border-radius: 5px;
+	padding: 2px 4px;
+	font-weight: bolder;
+	white-space: nowrap;
+	font-size: smaller;
 }
 
 #main {
